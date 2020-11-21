@@ -37,7 +37,7 @@ output_msg: ; $(CLANG_VERSION_MSG)
 test: output_msg test.o 
 	$(LD) test.o $(LDFLAGS) -o test
 
-test.o : tests/test.cpp Tests/catch2/catch.hpp graph/graph.hpp graph/edge.h graph/graphIterator.h graph/BFStraversal.h graph/DFStraversal.h 
+test.o : tests/test.cpp tests/catch2/catch.hpp graph/graph.hpp graph/edge.h graph/graphIterator.h graph/BFStraversal.h graph/DFStraversal.h 
 	$(CXX) $(CXXFLAGS) tests/test.cpp
 
 .PHONY: output_msg
