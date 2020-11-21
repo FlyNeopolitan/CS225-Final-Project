@@ -4,3 +4,7 @@
 TEST_CASE("test makefile") {
     REQUIRE(1 == 1);
 }
+
+TEST_CASE("test Again") {
+    REQUIRE(2 == 2);
+}

@@ -13,7 +13,7 @@ main.o : output_msg main.cpp graph/graph.hpp graph/graphIterator.h graph/edge.h 
 	$(CXX) $(CXXFLAGS) main.cpp
 
 clean :
-	-rm -f *.o $(EXENAME) test_
+	-rm -f *.o $(EXENAME) test
 
 # Custom Clang version enforcement Makefile rule:
 ccred=$(shell echo -e "\033[0;31m")
