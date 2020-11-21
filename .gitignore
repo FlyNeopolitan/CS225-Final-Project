@@ -1,0 +1,15 @@
+.vscode
+
+*.swp
+*.swo
+*.swn
+*.swm
+*.gch
+
+*DS_Store
+*.o
+*.d
+.objs/
+main
+test
+why
