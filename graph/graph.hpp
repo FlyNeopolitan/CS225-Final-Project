@@ -4,12 +4,13 @@
 
 template<class K, class V>
 Graph<K, V>::Graph() {
-    //to do
+    //seems nothing here
 }
 
 template<typename K, typename V>
 Graph<K, V>::Graph(const std::initializer_list<K> VertexList) {
-    //to do
+    //insert the vertecies in the VertexList into the adjacent list
+    vertices_.insert(vertices_.end(),VertexList.begin(),VertexList.end());
 }
 
 //vertex-related implementation
