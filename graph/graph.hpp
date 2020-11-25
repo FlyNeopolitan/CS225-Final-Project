@@ -42,31 +42,56 @@ bool Graph<K, V>::vertextExists(const K& v) const {
 
 template<typename K, typename V>
 void Graph<K, V>::insertEdge(const K& v1, const K& v2, const V& weight) {
-    //to do
+    // if the edge already exists
+    if (vertices_.find(v1) != vertices_.end() && vertices_[v1].find(v2) != vertices_.end())
+        return;
+
+    if (vertices_.find(v1) == vertices_.end())
+        vertices_[v1] = unordered_map<K, Edge<K, V>>();
+
+    vertices_[v1][v2] = Edge<K, V>(v1, v2, weight);
 }
 
 
 template<typename K, typename V>
-void Graph<K, V>::removeEdge(const K& v1, const K& v2) {
-    //to do
+bool Graph<K, V>::removeEdge(const K& v1, const K& v2) {
+    if (!edgetExists(v1, v2))
+        return false;
+
+    Edge<K, V> e = vertices_[v1][v2];
+    vertices_[v1].erase(v2);
+    return true;
 }
 
 
 template<typename K, typename V>
-void Graph<K, V>::setEdgeWeight(const K& v1, const K& v2, const V& weight) {
-    //do to
+bool Graph<K, V>::setEdgeWeight(const K& v1, const K& v2, const V& weight) {
+    if (!edgetExists(v1, v2))
+        return false;
+
+    Edge<K, V> new_edge(v1, v2, weight);
+    vertices_[v1][v2] = new_edge;
+    return true;
 }
 
 
 template<typename K, typename V>
-void Graph<K, V>::getEdgeWeight(const K& v1, const K& v2) const {
-    //to do
+V Graph<K, V>::getEdgeWeight(const K& v1, const K& v2) const {
+    if (!edgetExists(v1, v2))
+        return V(-1);
+
+    return vertices_[v1][v2].getEdgeWeight();
 }
 
 
 template<typename K, typename V>
 bool Graph<K, V>::edgetExists(const K& v1, const K& v2) const {
-    //to do
+    if (!vertextExists(v1))
+        return false;
+    if (vertices_[v1].find(v2) == vertices_[v1].end())
+        return false;
+
+    return true;
 }
 
 //advanced algorithems
