@@ -11,6 +11,13 @@ public:
         weight_ = weight;
     }
 
+    /**
+     * Gets edge weight.
+     */
+    V getWeight() const {
+        return this->weight;
+    }
+
     K source_;
     K dest_;
     V weight_;
