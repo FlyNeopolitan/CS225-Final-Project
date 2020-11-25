@@ -17,25 +17,51 @@ Graph<K, V>::Graph(const std::initializer_list<K> VertexList) {
 
 template<typename K, typename V>
 void Graph<K, V>::insertVertex(const K& v) {
-    //to do
+    if (vertexExists(v))
+        return;
+
+    vertices_[v] = unordered_map<K, Edge<K, V>>();
 }
 
 
 template<typename K, typename V>
-void Graph<K, V>::removeVertex(const K& v) {
-    //to do
+bool Graph<K, V>::removeVertex(const K& v) {
+    if (vertices_.find(v) != vertices_.end()) {
+        vertices_.erase(v);
+        for (auto it = vertices_.begin(); it != vertices_.end(); it++) {
+            Vertex u = it->first;
+            if (it->second.find(v) != it->second.end())
+                it->second.erase(v);
+        }
+        return true;
+    }
+    return false;
 }
 
 
 template<typename K, typename V>
-std::vector<K> Graph<K, V>::getAdjacent(const K& v) const{
-    //to do
+vector<K> Graph<K, V>::getAdjacent(const K& v) const{
+    auto lookup = vertices_.find(v);
+
+    if (lookup == vertices_.end())
+        return vector<K>();
+    else {
+        vector<K> vertex_list;
+        unordered_map<Vertex, Edge<K, V>> & map = vertices_[v];
+        for (auto it = map.begin(); it != map.end(); it++)
+            vertex_list.push_back(it->first);
+
+        return vertex_list;
+    }
 }
 
 
 template<typename K, typename V>
-bool Graph<K, V>::vertextExists(const K& v) const {
-    //to do
+bool Graph<K, V>::vertexExists(const K& v) const {
+    if (vertices_.find(v) == vertices_.end())
+        return false;
+
+    return true;
 }
 
 //edge-related implementation
@@ -103,7 +129,7 @@ unsigned Graph<K, V>::BetweenessCentrality(const K& v) const {
 
 
 template<typename K, typename V>
-std::vector<K> Graph<K, V>::shortestPath(K v1, K v2) const {
+vector<K> Graph<K, V>::shortestPath(K v1, K v2) const {
     //to do
 }
 

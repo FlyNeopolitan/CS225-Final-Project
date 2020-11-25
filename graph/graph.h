@@ -10,6 +10,7 @@
 #include "list"
 #include "unordered_map"
 
+using std::vector;
 using std::unordered_map;
 
 template<class K, class V>
@@ -40,22 +41,23 @@ public:
     /**
      * remove a vertex and all edges related to it
      * @param v represents target vertex
+     * @return whether removing the vertex was successful
      */
-    void removeVertex(const K& v);
+    bool removeVertex(const K& v);
 
     /**
      * Gets all adjacent vertices to the parameter vertex.
      * @param v represents target vertex
      * @return vector of vertices who is neighbour of target vertex
      */
-    std::vector<K> getAdjacent(const K& v) const;
+    vector<K> getAdjacent(const K& v) const;
 
     /**
      * check if a vertex exists
      * @param v represents target vertex
      * @return true if target vertex exists
      */
-    bool vertextExists(const K& v) const;
+    bool vertexExists(const K& v) const;
 
     //edge related
 
@@ -118,7 +120,7 @@ public:
      * For example, {v1,v3,v2} indicates that path is v1->v3->v2 for shortestPath(v1,v3)
      * If there is no such a path, return an empty vector
      */
-    std::vector<K> shortestPath(K v1, K v2) const;
+    vector<K> shortestPath(K v1, K v2) const;
 
     /**
      * get the shortest distance from source to target
