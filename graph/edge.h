@@ -4,8 +4,18 @@ template<typename K, typename V>
 class Edge {
 
 public:
+    
+    /**
+     * default constructor
+     */
+    Edge() {
+        //do nothing
+    }
 
-    Edge(const K& source, const K& dest, V weight = V()) {
+    /**
+     * constructor for edge
+     */
+    Edge(const K& source, const K& dest, const V& weight = V()) {
         source_ = source;
         dest_ = dest;
         weight_ = weight;
@@ -14,8 +24,8 @@ public:
     /**
      * Gets edge weight.
      */
-    V getWeight() const {
-        return this->weight;
+    V getEdgeWeight() const {
+        return this->weight_;
     }
 
     K source_;

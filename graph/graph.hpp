@@ -1,4 +1,3 @@
-#include "graph.h"
 
 //constructors
 
@@ -10,7 +9,17 @@ Graph<K, V>::Graph() {
 template<typename K, typename V>
 Graph<K, V>::Graph(const std::initializer_list<K> VertexList) {
     //insert the vertecies in the VertexList into the adjacent list
-    vertices_.insert(vertices_.end(),VertexList.begin(),VertexList.end());
+    vector<K> names(VertexList);
+    for (const auto& name : names) {
+        vertices_[name] = unordered_map<K, Edge<K, V>>();
+    }
+}
+
+template<typename K, typename V>
+Graph<K, V>::Graph(const std::vector<K> VertexVector) {
+    for (const auto& name : VertexVector) {
+        vertices_[name] = unordered_map<K, Edge<K, V>>();
+    }
 }
 
 //vertex-related implementation
@@ -47,7 +56,8 @@ vector<K> Graph<K, V>::getAdjacent(const K& v) const{
         return vector<K>();
     else {
         vector<K> vertex_list;
-        unordered_map<Vertex, Edge<K, V>> & map = vertices_[v];
+        //unordered_map<Vertex, Edge<K, V>> & map = vertices_[v];
+        auto& map = vertices_[v];
         for (auto it = map.begin(); it != map.end(); it++)
             vertex_list.push_back(it->first);
 
@@ -67,15 +77,16 @@ bool Graph<K, V>::vertexExists(const K& v) const {
 //edge-related implementation
 
 template<typename K, typename V>
-void Graph<K, V>::insertEdge(const K& v1, const K& v2, const V& weight) {
+bool Graph<K, V>::insertEdge(const K& v1, const K& v2, const V& weight) {
     // if the edge already exists
-    if (vertices_.find(v1) != vertices_.end() && vertices_[v1].find(v2) != vertices_.end())
-        return;
+    if (vertices_.find(v1) != vertices_.end() && vertices_[v1].find(v2) != vertices_[v1].end())
+        return false;
 
     if (vertices_.find(v1) == vertices_.end())
         vertices_[v1] = unordered_map<K, Edge<K, V>>();
 
     vertices_[v1][v2] = Edge<K, V>(v1, v2, weight);
+    return true;
 }
 
 
@@ -112,7 +123,7 @@ V Graph<K, V>::getEdgeWeight(const K& v1, const K& v2) const {
 
 template<typename K, typename V>
 bool Graph<K, V>::edgetExists(const K& v1, const K& v2) const {
-    if (!vertextExists(v1))
+    if (!vertexExists(v1))
         return false;
     if (vertices_[v1].find(v2) == vertices_[v1].end())
         return false;
@@ -143,6 +154,11 @@ V Graph<K, V>::shortestDis(K v1, K v2) const {
 template<typename K, typename V>
 bool Graph<K, V>::ifConnected(K v1, K v2) const {
     //to do
+}
+
+template<typename K, typename V>
+unsigned Graph<K, V>::verticesSize() {
+    return vertices_.size();
 }
 
 

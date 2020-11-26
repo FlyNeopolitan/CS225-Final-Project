@@ -29,6 +29,12 @@ public:
      * @param VertexList represents vertex list
     */
     Graph(const std::initializer_list<K> VertexList);
+    
+    /**
+     * Using vertices to initilize a graph with no edge
+     * @param VertexVector represents vertex vector
+    */
+    Graph(const std::vector<K> VertexVector);
 
     //Vertex related
 
@@ -63,12 +69,13 @@ public:
 
     /**
      * insert an edge from v1 to v2 with weight
+     * When the edge exists, it will not change the weight of that edge
      * @param v1 represents source vertex
      * @param v2 represents destination vertex
      * @param weight represents weight (set to V() by default)
      * @return whether inserting the edge was successful
      */
-    void insertEdge(const K& v1, const K& v2, const V& weight = V());
+    bool insertEdge(const K& v1, const K& v2, const V& weight = V());
 
     /**
      * remove an edge from v1 to v2
@@ -140,6 +147,11 @@ public:
      */
     bool ifConnected(K v1, K v2) const;
 
+    /**
+     * @return the size of vertices
+     */
+    unsigned verticesSize();
+
 private:
 
     class Vertex {
@@ -155,4 +167,6 @@ private:
 
     mutable unordered_map<K, unordered_map<K, Edge<K, V>>> vertices_;
 };
+
+#include "graph.hpp"
 
