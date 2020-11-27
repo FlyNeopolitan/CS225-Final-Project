@@ -64,15 +64,53 @@ TEST_CASE("Vertx related") {
         for (int i = 0; i < 100; ++i) {
             REQUIRE(test.vertexExists(expected_name));
             stringNext(expected_name);
-        } 
+        }
     }
 }
 
 
 TEST_CASE("Edge related") {
-    //to do
+    SECTION("Edge insert: simple test") {
+        Graph<std::string, int> test{"a", "b", "c"};
 
-    //
+        test.insertEdge("a", "c");
+        test.insertEdge("a", "b", 1);
+        REQUIRE(test.edgetExists("b", "c") == false); // a->c and a->b doesn't imply b->c
+        REQUIRE(test.insertEdge("a", "a", 1) == false); // vertices are identical
+        REQUIRE(test.getEdgeWeight("a", "b") == 1);
+        REQUIRE(test.edgetExists("a", "b") == true); // with the direction
+        REQUIRE(test.edgetExists("b", "a") == false); // against the direction
+
+        REQUIRE(test.insertEdge("a", "b", 2) == false); // edge already exists
+        test.insertEdge("b", "a", 2);
+        REQUIRE(test.getEdgeWeight("b", "a") == 2);
+        REQUIRE(test.edgetExists("b", "a") == true);
+    }
+
+    SECTION("Edge remove: simple test") {
+        Graph<std::string, int> test{"a", "b", "c"};
+
+        test.insertEdge("a", "b");
+        REQUIRE(test.edgetExists("a", "b") == true);
+        REQUIRE(test.removeEdge("a", "a") == false); // vertices are identical
+
+        test.removeEdge("a", "b");
+        REQUIRE(test.edgetExists("a", "b") == false);
+        REQUIRE(test.removeEdge("a", "b") == false); // edge doesn't exist
+        REQUIRE(test.removeEdge("a", "c") == false);
+    }
+
+    SECTION("Set edge weight: simple test") {
+        Graph<std::string, int> test{"a", "b"};
+
+        test.insertEdge("a", "b", 1);
+        REQUIRE(test.setEdgeWeight("a", "a", 2) == false); // vertices are identical
+        REQUIRE(test.setEdgeWeight("a", "c", 2) == false); // edge doesn't exist
+
+        test.setEdgeWeight("a", "b", 2);
+        REQUIRE(test.getEdgeWeight("a", "b") == 2);
+    }
+
     SECTION("Edge exists : simple test") {
         Graph<std::string, int> test{"a", "b", "c", "d"};
         //first insertion

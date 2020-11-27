@@ -56,8 +56,7 @@ vector<K> Graph<K, V>::getAdjacent(const K& v) const{
         return vector<K>();
     else {
         vector<K> vertex_list;
-        //unordered_map<Vertex, Edge<K, V>> & map = vertices_[v];
-        auto& map = vertices_[v];
+        auto & map = vertices_[v];
         for (auto it = map.begin(); it != map.end(); it++)
             vertex_list.push_back(it->first);
 
@@ -78,6 +77,10 @@ bool Graph<K, V>::vertexExists(const K& v) const {
 
 template<typename K, typename V>
 bool Graph<K, V>::insertEdge(const K& v1, const K& v2, const V& weight) {
+    // if v1, v2 are identical
+    if (v1 == v2)
+        return false;
+
     // if the edge already exists
     if (vertices_.find(v1) != vertices_.end() && vertices_[v1].find(v2) != vertices_[v1].end())
         return false;
@@ -115,7 +118,7 @@ bool Graph<K, V>::setEdgeWeight(const K& v1, const K& v2, const V& weight) {
 template<typename K, typename V>
 V Graph<K, V>::getEdgeWeight(const K& v1, const K& v2) const {
     if (!edgetExists(v1, v2))
-        return V(-1);
+        return V();
 
     return vertices_[v1][v2].getEdgeWeight();
 }
