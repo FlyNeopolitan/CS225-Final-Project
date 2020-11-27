@@ -48,8 +48,38 @@ TEST_CASE("Constructor") {
 
 
 TEST_CASE("Vertx related") {
-    //to do
-
+    //
+    SECTION("insertVertex: simple test"){
+        Graph<std::string, int> test;
+        test.insertVertex("a");
+        test.insertVertex("b");
+        test.insertVertex("c");
+        test.insertVertex("a");
+        //test size
+        REQUIRE(test.verticesSize() == 3);
+        //test exisitence
+        REQUIRE(test.vertexExists("a"));
+        REQUIRE(test.vertexExists("b"));
+        REQUIRE(test.vertexExists("c"));
+    }
+    SECTION("removeVertex: simple test"){
+        Graph<std::string, int> test{"a","b","c"};
+        test.removeVertex("a");
+        REQUIRE(!test.vertexExists("a"));
+        test.removeVertex("b");
+        REQUIRE(!test.vertexExists("b"));
+        test.removeVertex("c");
+        REQUIRE(!test.vertexExists("c"));
+        REQUIRE(test.verticesSize() == 0);
+    }
+    SECTION("getAdjacent: simple test"){
+        Graph<std::string, int> test{"a", "b", "c"};
+        test.insertEdge("a", "b");
+        test.insertEdge("a", "c");
+        std::vector<std::string> res=test.getAdjacent("a");
+        REQUIRE(std::find(res.begin(),res.end(),"b")!=res.end());
+        REQUIRE(std::find(res.begin(),res.end(),"c")!=res.end());
+    }
 
     //
     SECTION("Vertex exists") {
