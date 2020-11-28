@@ -1,4 +1,6 @@
-#include "graph.h"
+#pragma once
+
+#include "../graph/graph.h"
 
 template<typename K>
 class GraphTraversal {
@@ -35,7 +37,7 @@ public:
             Iterator & operator++() 
             {
                 if (!traversal->empty()) {
-                     current = traversal->pop();			
+                    current = traversal->pop();			
                     traversal->add(current);
                     current = traversal->peek();
                 }	
@@ -58,7 +60,7 @@ public:
             */
             bool operator!=(const Iterator& other) 
             {
-                return true;
+                return current != other.current;
             }
 
         private:

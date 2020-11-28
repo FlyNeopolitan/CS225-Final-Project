@@ -9,7 +9,7 @@ LDFLAGS = -std=c++1y -stdlib=libc++ -lc++abi -lm
 $(EXENAME) : $(OBJS)
 	$(LD) $(OBJS) $(LDFLAGS) -o $(EXENAME)
 
-main.o : output_msg main.cpp graph/graph.hpp graph/graphIterator.h graph/edge.h graph/BFStraversal.h graph/DFStraversal.h 
+main.o : output_msg main.cpp graph/BFStraversal.h graph/graph.hpp graph/edge.h 
 	$(CXX) $(CXXFLAGS) main.cpp
 
 clean :
@@ -37,7 +37,7 @@ output_msg: ; $(CLANG_VERSION_MSG)
 test: output_msg test.o 
 	$(LD) test.o $(LDFLAGS) -o test
 
-test.o : tests/test.cpp tests/catch2/catch.hpp graph/graph.hpp graph/graph.h graph/edge.h graph/graphIterator.h graph/BFStraversal.h graph/DFStraversal.h 
+test.o : tests/test.cpp tests/catch2/catch.hpp graph/graph.hpp graph/graph.h graph/edge.h graph/graphIterator.h graph/BFStraversal.h
 	$(CXX) $(CXXFLAGS) tests/test.cpp
 
 .PHONY: output_msg
