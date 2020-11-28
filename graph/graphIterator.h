@@ -2,6 +2,7 @@
 
 #include "../graph/graph.h"
 
+//warning : node with value K() will be treated like Node out of graph!
 template<typename K>
 class GraphTraversal {
 
@@ -59,7 +60,7 @@ public:
             * @return if two iterators are not equal.
             */
             bool operator!=(const Iterator& other) 
-            {
+            {   
                 return current != other.current;
             }
 

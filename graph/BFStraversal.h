@@ -9,7 +9,10 @@ class BFStraversal : GraphTraversal<K> {
 
 public:
     
-    BFStraversal(Graph<K, V> graph, K startingPoint);
+    BFStraversal(Graph<K, V> graph, K startingPoint) : start(startingPoint) {
+        this->graph = graph;
+        Queue.push(start);
+    }
 
     typename GraphTraversal<K>::Iterator begin() {
         return typename GraphTraversal<K>::Iterator(this, start);

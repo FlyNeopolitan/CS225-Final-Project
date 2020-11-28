@@ -2,6 +2,7 @@
 #include <vector>
 #include "catch2/catch.hpp"
 #include "../graph/graph.h"
+#include "../graph/BFStraversal.h"
 
 //help method
 void stringNext(std::string& current);
@@ -193,6 +194,48 @@ TEST_CASE("Edge related") {
     }
 }
 
+
+TEST_CASE("Traversal") {
+
+    SECTION("BFS Traversal : traversal objects simple test") {
+        Graph<int, int> graph{1, 2, 3, 4, 5, 6, 7, 8, 9};
+        graph.insertEdge(1, 2);
+        graph.insertEdge(1, 3);
+        graph.insertEdge(3, 4);
+        graph.insertEdge(4, 7);
+        graph.insertEdge(7, 5);
+        graph.insertEdge(5, 8);
+        graph.insertEdge(5, 6);
+        graph.insertEdge(5, 7);
+        graph.insertEdge(5, 1);
+        BFStraversal<int, int> test(graph, 1);
+        std::set<int> traversal;
+        for (auto i : test) {
+            traversal.insert(i);
+        }
+        REQUIRE(traversal == std::set<int>{1,2,3,4,5,6,7,8});
+    }
+
+    SECTION("BFS Traversal : traversal order simple test") {
+        Graph<int, int> graph{1, 2, 3, 4, 5, 6, 7, 8, 9};
+        graph.insertEdge(1, 4);
+        graph.insertEdge(1, 3);
+        graph.insertEdge(1, 2);
+        graph.insertEdge(4, 7);
+        graph.insertEdge(3, 6);
+        graph.insertEdge(2, 5);
+        graph.insertEdge(7, 8);
+        graph.insertEdge(3, 4);
+        graph.insertEdge(2, 3);
+        BFStraversal<int, int> test(graph, 1);
+        std::vector<int> actual;
+        for (auto i : test) {
+            actual.push_back(i);
+        }
+        REQUIRE(actual == std::vector<int>{1, 2, 3, 4, 5, 6, 7, 8});
+    }
+    
+}
 
 
 

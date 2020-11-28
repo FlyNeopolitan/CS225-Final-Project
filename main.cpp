@@ -5,9 +5,13 @@
 
 int main() {
     std::cout << "hello world" << std::endl;
-    Graph<std::string, int> graph{"a", "b", "c"};
-    BFStraversal<std::string, int> test(graph, "a");
-    
-
-
+    Graph<int, int> graph{1, 2, 3, 4};
+    graph.insertEdge(1, 2);
+    graph.insertEdge(1, 3);
+    graph.insertEdge(3, 4);
+    BFStraversal<int, int> test(graph, 1);
+    for (auto i = test.begin(); i != test.end(); ++i) {
+        std::cout << *i << " ";
+    }
+    std::cout << std::endl;
 }
