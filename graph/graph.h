@@ -4,12 +4,14 @@
  */
 #pragma once
 
-#include <initializer_list>
 #include "edge.h"
-#include "vector"
-#include "list"
-#include "unordered_map"
+#include <vector>
+#include <list>
+#include <algorithm>
+#include <unordered_map>
+#include <initializer_list>
 
+using std::pair;
 using std::vector;
 using std::unordered_map;
 
@@ -29,7 +31,7 @@ public:
      * @param VertexList represents vertex list
     */
     Graph(const std::initializer_list<K> VertexList);
-    
+
     /**
      * Using vertices to initilize a graph with no edge
      * @param VertexVector represents vertex vector
@@ -134,9 +136,8 @@ public:
      * @param v1 represents source vertex
      * @param v2 represents target vertex
      * @return the distance from source to target
-     * If there is no such a path, return V()
      */
-    V shortestDis(K v1, K v2) const;
+    int shortestDis(K v1, K v2) const;
 
      /**
      * check if source vertex is connected with target

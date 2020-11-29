@@ -144,13 +144,68 @@ unsigned Graph<K, V>::BetweenessCentrality(const K& v) const {
 
 template<typename K, typename V>
 vector<K> Graph<K, V>::shortestPath(K v1, K v2) const {
-    //to do
+    set<pair<int, K>> Q;
+    Q.insert({0, v1});
+    vector<int> shortest_dis(vertices_.size(), INT_MAX);
+    shortest_dis[v1] = 0;
+
+    while (!Q.empty()) {
+        K idx = Q.begin()->second;
+        if (idx == v2) {
+            vector<K> shortest_path{idx};
+            while (idx != v1) {
+                K next = idx;
+                for (auto e: vertices_[idx]) {
+                    if (shortest_dis[r.dest_] == INT_MAX)
+                        continue;
+                    if (shortest_dis[idx] != shortest_dis[e.dest_] + e.weight_)
+                        continue;
+                    next = e.dest_;
+                    shortest_path.push_back(next);
+                    break;
+                }
+                if (idx == next)
+                    break;
+                idx = next;
+            }
+            std::reverse(shortest_path.begin(), shortest_path.end());
+            return shortest_path;
+        }
+        Q.erase(Q.begin());
+        for (auto e: vertices_[idx]) {
+            if (shortest_dis[e.dest_] > shortest_dis[idx] + e.weight_) {
+                Q.erase({shortest_dis[e.dest_], e.dist_});
+                shortest_dis[e.dest_] = shortest_dis[idx] + e.weight_;
+                Q.insert({shortest_dis[e.dest_], e.dist_});
+            }
+        }
+    }
+    return vector<K> {K()};
 }
 
 
 template<typename K, typename V>
-V Graph<K, V>::shortestDis(K v1, K v2) const {
-    //to do
+int Graph<K, V>::shortestDis(K v1, K v2) const {
+    set<pair<int, K>> Q;
+    Q.insert({0, v1});
+    vector<int> shortest_dis(vertices_.size(), INT_MAX);
+    shortest_dis[v1] = 0;
+
+    while (!Q.empty()) {
+        K idx = Q.begin()->second;
+        if (idx == v2) {
+            return shortest_dis[idx];
+        }
+        Q.erase(Q.begin());
+        for (auto e: vertices_[idx]) {
+            if (shortest_dis[r.dest_] > shortest_dis[idx] + e.weight_) {
+                Q.erase({shortest_dis[e.dest_], e.dist_});
+                shortest_dis[e.dest_] = shortest_dis[idx] + e.weight_;
+                Q.insert({shortest_dis[e.dest_], e.dist_});
+            }
+        }
+    }
+    return INT_MAX;
 }
 
 
