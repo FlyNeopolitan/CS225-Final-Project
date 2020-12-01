@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include <iterator>
+#include "readFromFile.hpp"
 
 // we do not use this function
 // drawbacks: the buffer is too large, not good for performance; and not sliced by delim
@@ -64,7 +65,7 @@ std::vector<std::vector<std::string>> line_to_vector(const std::string & filenam
 		return res;
 	}
 
-	std::vector<std::string> res;
+	//std::vector<std::string> res;
 	std::string line;
 	while(getline(infile,line)){
 		res.push_back(split(line,delim));

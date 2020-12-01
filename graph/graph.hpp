@@ -144,7 +144,7 @@ unsigned Graph<K, V>::BetweenessCentrality(const K& v) const {
 
 template<typename K, typename V>
 vector<K> Graph<K, V>::shortestPath(K v1, K v2) const {
-    set<pair<int, K>> Q;
+    std::set<pair<int, K>> Q;
     Q.insert({0, v1});
     vector<int> shortest_dis(vertices_.size(), INT_MAX);
     shortest_dis[v1] = 0;
@@ -156,7 +156,7 @@ vector<K> Graph<K, V>::shortestPath(K v1, K v2) const {
             while (idx != v1) {
                 K next = idx;
                 for (auto e: vertices_[idx]) {
-                    if (shortest_dis[r.dest_] == INT_MAX)
+                    if (shortest_dis[e.dest_] == INT_MAX)
                         continue;
                     if (shortest_dis[idx] != shortest_dis[e.dest_] + e.weight_)
                         continue;
@@ -186,7 +186,7 @@ vector<K> Graph<K, V>::shortestPath(K v1, K v2) const {
 
 template<typename K, typename V>
 int Graph<K, V>::shortestDis(K v1, K v2) const {
-    set<pair<int, K>> Q;
+    std::set<pair<int, K>> Q;
     Q.insert({0, v1});
     vector<int> shortest_dis(vertices_.size(), INT_MAX);
     shortest_dis[v1] = 0;
@@ -198,7 +198,7 @@ int Graph<K, V>::shortestDis(K v1, K v2) const {
         }
         Q.erase(Q.begin());
         for (auto e: vertices_[idx]) {
-            if (shortest_dis[r.dest_] > shortest_dis[idx] + e.weight_) {
+            if (shortest_dis[e.dest_] > shortest_dis[idx] + e.weight_) {
                 Q.erase({shortest_dis[e.dest_], e.dist_});
                 shortest_dis[e.dest_] = shortest_dis[idx] + e.weight_;
                 Q.insert({shortest_dis[e.dest_], e.dist_});

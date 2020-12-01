@@ -1,5 +1,5 @@
 EXENAME = main
-OBJS = main.o 
+OBJS = main.o readFromFile.o
 
 CXX = clang++
 CXXFLAGS = $(CS225) -std=c++1y -stdlib=libc++ -c -g -O0 -Wall -Wextra -pedantic
@@ -11,6 +11,9 @@ $(EXENAME) : $(OBJS)
 
 main.o : output_msg main.cpp graph/BFStraversal.h graph/graph.hpp graph/edge.h 
 	$(CXX) $(CXXFLAGS) main.cpp
+
+readFromFile.o : readFromFile.cpp readFromFile.hpp
+	$(CXX) $(CXXFLAGS) readFromFile.cpp
 
 clean :
 	-rm -f *.o $(EXENAME) test
