@@ -195,6 +195,13 @@ TEST_CASE("Edge related") {
 }
 
 
+TEST_CASE("Shortest Path, Shortest Distance") {
+    SECTION("") {
+
+    }
+}
+
+
 TEST_CASE("Traversal") {
 
     SECTION("BFS Traversal : traversal objects simple test") {
@@ -234,7 +241,7 @@ TEST_CASE("Traversal") {
         }
         REQUIRE(actual == std::vector<int>{1, 2, 3, 4, 5, 6, 7, 8});
     }
-    
+
 }
 
 

@@ -138,7 +138,7 @@ public:
      * @param v2 represents target vertex
      * @return the distance from source to target
      */
-    int shortestDis(K v1, K v2) const;
+    V shortestDis(K v1, K v2) const;
 
      /**
      * check if source vertex is connected with target

@@ -180,15 +180,15 @@ vector<K> Graph<K, V>::shortestPath(K v1, K v2) const {
             }
         }
     }
-    return vector<K> {K()};
+    return vector<K> {};
 }
 
 
 template<typename K, typename V>
-int Graph<K, V>::shortestDis(K v1, K v2) const {
+V Graph<K, V>::shortestDis(K v1, K v2) const {
     std::set<pair<int, K>> Q;
     Q.insert({0, v1});
-    vector<int> shortest_dis(vertices_.size(), INT_MAX);
+    vector<V> shortest_dis(vertices_.size(), INT_MAX);
     shortest_dis[v1] = 0;
 
     while (!Q.empty()) {
@@ -205,7 +205,7 @@ int Graph<K, V>::shortestDis(K v1, K v2) const {
             }
         }
     }
-    return INT_MAX;
+    return V();
 }
 
 
