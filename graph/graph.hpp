@@ -141,7 +141,8 @@ unsigned Graph<K, V>::BetweenessCentrality(const K& v) const {
     //to do
 }
 
-
+// Implemented based on shortestDis.
+// Starting at the destination, examine all nodes with edges going to it. Pick the node adjacent to the destination with the lowest min(distance + edge.weight) to the destination node. If the adjacent node is not in the min distance map, ignore it. This is the new destination. Repeat until the destination is the source.
 template<typename K, typename V>
 vector<K> Graph<K, V>::shortestPath(K v1, K v2) const {
     std::set<pair<int, K>> Q;
@@ -152,7 +153,7 @@ vector<K> Graph<K, V>::shortestPath(K v1, K v2) const {
     while (!Q.empty()) {
         K idx = Q.begin()->second;
         if (idx == v2) {
-            vector<K> shortest_path{idx};
+            vector<K> shortest_path{idx}; // a vector to store the path
             while (idx != v1) {
                 K next = idx;
                 for (auto e: vertices_[idx]) {
@@ -183,10 +184,11 @@ vector<K> Graph<K, V>::shortestPath(K v1, K v2) const {
     return vector<K> {};
 }
 
-
+// Dijkstra's algorithm using a priority queue
+// https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm
 template<typename K, typename V>
 V Graph<K, V>::shortestDis(K v1, K v2) const {
-    std::set<pair<int, K>> Q;
+    std::set<pair<int, K>> Q; // a set to store the priority queue
     Q.insert({0, v1});
     vector<V> shortest_dis(vertices_.size(), INT_MAX);
     shortest_dis[v1] = 0;

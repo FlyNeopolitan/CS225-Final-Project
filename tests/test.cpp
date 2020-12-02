@@ -195,13 +195,6 @@ TEST_CASE("Edge related") {
 }
 
 
-TEST_CASE("Shortest Path, Shortest Distance") {
-    SECTION("") {
-
-    }
-}
-
-
 TEST_CASE("Traversal") {
 
     SECTION("BFS Traversal : traversal objects simple test") {
