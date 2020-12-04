@@ -11,9 +11,11 @@
 #include <unordered_map>
 #include <initializer_list>
 #include <set>
+#include <queue>
 
 using std::pair;
 using std::vector;
+using std::queue;
 using std::unordered_map;
 
 template<class K, class V>

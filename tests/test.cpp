@@ -237,7 +237,38 @@ TEST_CASE("Traversal") {
 
 }
 
+TEST_CASE("if connected"){
+    SECTION("simple test"){
+        Graph<int, int> graph{1, 2, 3, 4, 5};
+        graph.insertEdge(1, 4);
+        graph.insertEdge(5, 1);
+        graph.insertEdge(2, 1);
+        graph.insertEdge(1, 3);
+        REQUIRE(graph.ifConnected(5,4)==true);
+        REQUIRE(graph.ifConnected(1,5)==false);
+        REQUIRE(graph.ifConnected(2,5)==false);
+    }
+}
 
+TEST_CASE("betweenness Centrality"){
+    // shortest path not finished yet
+    /*SECTION("simple test"){
+        Graph<int, int> graph{1, 2, 3, 4, 5};
+        graph.insertEdge(1, 4);
+        graph.insertEdge(5, 1);
+        graph.insertEdge(2, 1);
+        graph.insertEdge(1, 3);
+        graph.insertEdge(5, 2);
+        graph.insertEdge(2, 5);
+        graph.insertEdge(3, 2);
+        graph.insertEdge(3, 5);
+        graph.insertEdge(3, 4);
+        graph.insertEdge(4, 2);
+        graph.insertEdge(4, 5);
+        graph.insertEdge(4, 3);
+        REQUIRE(graph.BetweenessCentrality(1)==4);
+    }*/
+}
 
 //helper method to get next string
 void stringNext(std::string& current) {
