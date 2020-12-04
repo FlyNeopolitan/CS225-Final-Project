@@ -137,7 +137,7 @@ bool Graph<K, V>::edgetExists(const K& v1, const K& v2) const {
 //advanced algorithems
 
 // time complexity is O(n^3), which is too large
-// Thus when using, desploy a small sample to indicate the population, 
+// Thus when using, desploy a small sample to indicate the population,
 // rather than apply to the large population directly
 template<typename K, typename V>
 unsigned Graph<K, V>::BetweenessCentrality(const K& v) const {
@@ -148,10 +148,10 @@ unsigned Graph<K, V>::BetweenessCentrality(const K& v) const {
         for (auto dest=vertices_.begin();dest!=vertices_.end();++dest){
             // if the src or the dest is v itself or
             // if these two vertices are the same vertices
-            if ((*src).first==v || (*dest).first==v ||
-                (*src).first==(*dest).first) continue;
+            if ((*src).first == v || (*dest).first==v ||
+                (*src).first == (*dest).first) continue;
             // compute the shortest path between the src and dest vertices
-            vector<K> v_path=shortestPath((*src).first,(*dest).first);
+            vector<K> v_path = shortestPath((*src).first,(*dest).first);
             // check if the target vertice exists in the shortest path, increase the res
             if(std::find(v_path.begin(),v_path.end(),v)!=v_path.end()) res++;
         }
@@ -163,6 +163,9 @@ unsigned Graph<K, V>::BetweenessCentrality(const K& v) const {
 // Starting at the destination, examine all nodes with edges going to it. Pick the node adjacent to the destination with the lowest min(distance + edge.weight) to the destination node. If the adjacent node is not in the min distance map, ignore it. This is the new destination. Repeat until the destination is the source.
 template<typename K, typename V>
 vector<K> Graph<K, V>::shortestPath(K v1, K v2) const {
+    if (!ifConnected(v1, v2))
+        return vector<K> {};
+
     std::set<pair<int, K>> Q;
     Q.insert({0, v1});
     vector<int> shortest_dis(vertices_.size(), INT_MAX);
@@ -199,13 +202,15 @@ vector<K> Graph<K, V>::shortestPath(K v1, K v2) const {
             }
         }
     }
-    return vector<K> {};
 }
 
 // Dijkstra's algorithm using a priority queue
 // https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm
 template<typename K, typename V>
 V Graph<K, V>::shortestDis(K v1, K v2) const {
+    if (!ifConnected(v1, v2))
+        return V();
+
     std::set<pair<int, K>> Q; // a set to store the priority queue
     Q.insert({0, v1});
     vector<V> shortest_dis(vertices_.size(), INT_MAX);
@@ -225,20 +230,19 @@ V Graph<K, V>::shortestDis(K v1, K v2) const {
             }
         }
     }
-    return V();
 }
 
 
 template<typename K, typename V>
 bool Graph<K, V>::ifConnected(K v1, K v2) const {
     // if two vertices are the same, connected
-    if(v1==v2) return true;
+    if(v1 == v2) return true;
 
     // initiate the visited vector and vertice queue
     unordered_map<K,bool> visited;
     for (auto it=vertices_.begin();it!=vertices_.end();++it){
         visited[(*it).first]=false;
-    } 
+    }
     queue<K> queue;
     // push the starting vertice into the queue
     queue.push(v1);

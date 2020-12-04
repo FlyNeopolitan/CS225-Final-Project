@@ -244,9 +244,9 @@ TEST_CASE("if connected"){
         graph.insertEdge(5, 1);
         graph.insertEdge(2, 1);
         graph.insertEdge(1, 3);
-        REQUIRE(graph.ifConnected(5,4)==true);
-        REQUIRE(graph.ifConnected(1,5)==false);
-        REQUIRE(graph.ifConnected(2,5)==false);
+        REQUIRE(graph.ifConnected(5,4) == true);
+        REQUIRE(graph.ifConnected(1,5) == false);
+        REQUIRE(graph.ifConnected(2,5) == false);
     }
 }
 
