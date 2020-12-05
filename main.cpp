@@ -46,13 +46,15 @@ int main() {
     auto sampleGraph = openFlightsGraph(airports, routes);
     //sample : do a traversal
     printTraversal(sampleGraph, "LAE");
-    //other samples....
-    auto distance = sampleGraph.shortestDis("LAE", "YPO");
-    auto path = sampleGraph.shortestPath("LAE", "YPO");
+    //shortes path
+    auto distance = sampleGraph.shortestDis("LAE", "OKA");
+    auto path = sampleGraph.shortestPath("LAE", "OKA");
     std::cout << distance << std::endl;
     for (auto& node : path) {
         std::cout << node << std::endl;
     }
+    //centrality
+    std::cout << sampleGraph.BetweenessCentrality("LAE") << std::endl;
 }
 
 void printAirports(const std::unordered_map<std::string, std::pair<double, double>>& airports) {
@@ -70,9 +72,12 @@ void printRoutes(const std::vector<std::pair<std::string, std::string>>& routes)
 }
 
 void printTraversal(Graph<std::string, double>& graph, std::string start) {
+    unsigned cnt = 0;
     std::cout << std::endl << "Let's do a traversal, from airport: " + start << std::endl;
     BFStraversal<std::string, double> traversal(graph, start);
     for (const auto& i : traversal) {
         std::cout << "Currently we are here: " << i << std::endl;
+        ++cnt;
     }
+    std::cout << "we have " << cnt << std::endl;
 }

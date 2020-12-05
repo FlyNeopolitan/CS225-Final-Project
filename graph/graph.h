@@ -13,6 +13,7 @@
 #include <queue>
 #include <limits>
 
+
 using std::pair;
 using std::vector;
 using std::queue;
@@ -154,6 +155,13 @@ public:
      * @return the size of vertices
      */
     unsigned verticesSize();
+    
+    /**
+    * get shortest path from v1 to all other vetices in the graph if connected
+    * @param v1 represents source vertex
+    * @return the result of shortest path from v1 to all other graph
+    */
+    unordered_map<K, vector<K>> shortestPath(K v1);
 
 private:
 
@@ -167,6 +175,9 @@ private:
     };
 
     mutable unordered_map<K, unordered_map<K, Edge<K, V>>> vertices_;
+
+    
+    vector<K> shortestPathHelper(const K&current, const unordered_map<K, K>& prev, unordered_map<K, vector<K>> results);
 };
 
 #include "graph.hpp"

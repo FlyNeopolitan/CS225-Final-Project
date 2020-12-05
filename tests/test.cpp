@@ -270,6 +270,16 @@ TEST_CASE("Dijkstra"){
         REQUIRE(graph.shortestPath(1, 6) == vector<int>{1, 2, 4, 6});
         REQUIRE(graph.shortestDis(1, 6) == 5);
     }
+
+    SECTION("Shortest path : simple test") {
+        Graph<int, int> graph{1, 2, 3};
+        graph.insertEdge(1, 2, 1);
+        graph.insertEdge(1, 3, 1);
+        graph.insertEdge(2, 3, 1);
+        unordered_map<int, vector<int>> actual = graph.shortestPath(1);
+        REQUIRE(actual[2] == vector<int>{1, 2});
+        REQUIRE(actual[3] == vector<int>{1, 3});
+    }
 }
 
 

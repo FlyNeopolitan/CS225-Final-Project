@@ -1,5 +1,6 @@
 
 //constructors
+#include "unordered_set"
 
 template<class K, class V>
 Graph<K, V>::Graph() {
@@ -143,17 +144,21 @@ template<typename K, typename V>
 unsigned Graph<K, V>::BetweenessCentrality(const K& v) const {
     // initialize the res to be 0
     unsigned res=0;
+    unsigned cnt = 0;
     // traverse all pairs of vertices in the graph, and find shortest path between the two
     for (auto src=vertices_.begin();src!=vertices_.end();++src){
         for (auto dest=vertices_.begin();dest!=vertices_.end();++dest){
+            std::cout << cnt << std::endl;
+            ++cnt;
             // if the src or the dest is v itself or
             // if these two vertices are the same vertices
             if ((*src).first == v || (*dest).first==v ||
                 (*src).first == (*dest).first) continue;
             // compute the shortest path between the src and dest vertices
             vector<K> v_path = shortestPath((*src).first,(*dest).first);
+            std::unordered_set<K> path_set(v_path.begin(), v_path.end());
             // check if the target vertice exists in the shortest path, increase the res
-            if(std::find(v_path.begin(),v_path.end(),v)!=v_path.end()) res++;
+            if(path_set.find(v) != path_set.end()) res++;
         }
     }
     return res;
@@ -243,6 +248,70 @@ V Graph<K, V>::shortestDis(K v1, K v2) const {
     return dist[v2];
 }
 
+
+template<typename K, typename V>
+unordered_map<K, vector<K>>  Graph<K, V>::shortestPath(K v1) {
+    unordered_map<K, vector<K>> results;
+
+    unordered_map<K, K> prev; // predecessor, the shortest path between v1 and v2 is: v1 -> u -> v2 where u = prev[v2] (note that the path from v1 to u may contain several vertices in between)
+    unordered_map<K, V> dist; // contains min distance from source to every other vertex
+    std::priority_queue<pair<K, V>, vector<pair<K, V>>, std::greater<pair<K, V>>> Q; // min heap, contains all unvisited vertices in pair of distance
+
+    for (auto it = vertices_.begin(); it != vertices_.end(); ++it) {
+        dist[it->first] = std::numeric_limits<V>::max();
+    }
+    dist[v1] = 0;
+    Q.push(std::make_pair(v1, 0));
+
+    while (!Q.empty()) {
+        K curr = Q.top().first; // curr is now the closest vertex to v1
+        Q.pop();
+
+        for (auto adj: vertices_[curr]) {
+            auto neighbor = adj.first;
+            auto edge = adj.second;
+            if (dist[curr] + edge.weight_ < dist[neighbor]) {
+                dist[neighbor] = dist[curr] + edge.weight_;
+                prev[neighbor] = curr;
+                Q.push(std::make_pair(neighbor, dist[neighbor]));
+            }
+        }
+    }
+    
+    //construction
+    results[v1] = vector<K>{v1};
+    queue<K> Queue;
+    std::unordered_set<K> visited;
+    Queue.push(v1);
+    visited.insert(v1);
+    while (!Queue.empty()) {
+        K current = Queue.front();
+        Queue.pop();
+        results[current] = shortestPathHelper(current, prev, results);
+        for (auto& neighbour : getAdjacent(current)) {        
+            if (visited.find(neighbour) == visited.end()) {
+                Queue.push(neighbour);
+                visited.insert(neighbour);
+            }
+        }
+    }
+
+    return results;
+}
+
+template<typename K, typename V>
+vector<K> Graph<K, V>::shortestPathHelper(const K&current, const unordered_map<K, K>& prev,
+     unordered_map<K, vector<K>> results) {
+        auto lookup = results.find(current);
+        if (lookup != results.end()) {
+            return lookup->second;
+        } else {
+            auto lookPrev = prev.find(current);
+            vector<K> pathBefore = shortestPathHelper(lookPrev->second, prev, results);
+            pathBefore.push_back(current);
+            return pathBefore;
+        }
+}
 
 template<typename K, typename V>
 bool Graph<K, V>::ifConnected(K v1, K v2) const {
