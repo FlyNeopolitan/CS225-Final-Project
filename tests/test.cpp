@@ -238,6 +238,27 @@ TEST_CASE("Traversal") {
 }
 
 
+TEST_CASE("Dijkstra"){
+    SECTION("Shorest Path : simple test"){
+        Graph<int, int> graph{1, 2, 3};
+        graph.insertEdge(1, 2, 1);
+        graph.insertEdge(1, 3, 1);
+        graph.insertEdge(2, 3, 1);
+        REQUIRE(graph.shortestPath(1, 4) == vector<int>{});
+        REQUIRE(graph.shortestPath(1, 3) == vector<int>{1, 3});
+    }
+
+    SECTION("Shorest Distance : simple test"){
+        Graph<int, int> graph{1, 2, 3, 4};
+        graph.insertEdge(1, 2, 1);
+        graph.insertEdge(1, 3, 1);
+        graph.insertEdge(2, 3, 1);
+        REQUIRE(graph.shortestDis(1, 4) == -1);
+        REQUIRE(graph.shortestDis(1, 3) == 1);
+    }
+}
+
+
 TEST_CASE("if connected"){
     SECTION("simple test"){
         Graph<int, int> graph{1, 2, 3, 4, 5};
@@ -253,8 +274,7 @@ TEST_CASE("if connected"){
 
 
 TEST_CASE("betweenness Centrality"){
-    // shortest path not finished yet
-    /*SECTION("simple test"){
+    SECTION("simple test"){
         Graph<int, int> graph{1, 2, 3, 4, 5};
         graph.insertEdge(1, 4);
         graph.insertEdge(5, 1);
@@ -269,7 +289,7 @@ TEST_CASE("betweenness Centrality"){
         graph.insertEdge(4, 5);
         graph.insertEdge(4, 3);
         REQUIRE(graph.BetweenessCentrality(1)==4);
-    }*/
+    }
 }
 
 //helper method to get next string

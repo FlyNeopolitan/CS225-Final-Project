@@ -159,80 +159,90 @@ unsigned Graph<K, V>::BetweenessCentrality(const K& v) const {
     return res;
 }
 
-// Implemented based on shortestDis.
-// Starting at the destination, examine all nodes with edges going to it. 
-//Pick the node adjacent to the destination with the lowest min(distance + edge.weight) to the destination node. 
-//If the adjacent node is not in the min distance map, ignore it. 
-//This is the new destination. Repeat until the destination is the source.
+
 template<typename K, typename V>
 vector<K> Graph<K, V>::shortestPath(K v1, K v2) const {
-    if (!ifConnected(v1, v2))
+    if (!ifConnected(v1, v2)) // if no path found
         return vector<K> {};
 
-    std::set<pair<int, K>> Q;
-    Q.insert({0, v1});
-    vector<int> shortest_dis(vertices_.size(), INT_MAX);
-    shortest_dis[v1] = 0;
+    unordered_map<K, K> prev; // predecessor, the shortest path between v1 and v2 is: v1 -> u -> v2 where u = prev[v2] (note that the path from v1 to u may contain several vertices in between)
+    unordered_map<K, V> dist; // contains min distance from source to every other vertex
+    std::priority_queue<pair<K, V>, vector<pair<K, V>>, std::greater<pair<K, V>>> Q; // min heap, contains all unvisited vertices in pair of distance
+
+    for (auto it = vertices_.begin(); it != vertices_.end(); ++it) {
+        prev[it->first] = V(-1); // use V(-1) as undefined
+        dist[it->first] = std::numeric_limits<V>::max();
+    }
+    //prev[v1] = V();
+    dist[v1] = 0;
+    Q.push(std::make_pair(v1, 0));
 
     while (!Q.empty()) {
-        K idx = Q.begin()->second;
-        if (idx == v2) {
-            vector<K> shortest_path{idx}; // a vector to store the path
-            while (idx != v1) {
-                K next = idx;
-                for (auto e: vertices_[idx]) {
-                    if (shortest_dis[e.dest_] == INT_MAX)
-                        continue;
-                    if (shortest_dis[idx] != shortest_dis[e.dest_] + e.weight_)
-                        continue;
-                    next = e.dest_;
-                    shortest_path.push_back(next);
-                    break;
-                }
-                if (idx == next)
-                    break;
-                idx = next;
-            }
-            std::reverse(shortest_path.begin(), shortest_path.end());
-            return shortest_path;
-        }
-        Q.erase(Q.begin());
-        for (auto e: vertices_[idx]) {
-            if (shortest_dis[e.dest_] > shortest_dis[idx] + e.weight_) {
-                Q.erase({shortest_dis[e.dest_], e.dist_});
-                shortest_dis[e.dest_] = shortest_dis[idx] + e.weight_;
-                Q.insert({shortest_dis[e.dest_], e.dist_});
+        K curr = Q.top().first; // curr is now the closest vertex to v1
+        Q.pop();
+
+        for (auto adj: vertices_[curr]) {
+            auto neighbor = adj.first;
+            auto edge = adj.second;
+            if (dist[curr] + edge.weight_ < dist[neighbor]) {
+                dist[neighbor] = dist[curr] + edge.weight_;
+                prev[neighbor] = curr;
+                Q.push(std::make_pair(neighbor, dist[neighbor]));
             }
         }
     }
+
+    /*
+     * Construct the shortest path with a stack S
+     * (FILO, since we will retrieve the path from the destination to the source):
+     *
+     * S <- empty sequence
+     * u <- target
+     * while prev[u] is defined:
+     *     insert u at the beginning of S // push current vertex onto the stack
+     *     u <- prev[u] // traverse from destination to source
+     * end while
+     */
+    vector<K> path;
+    K curr = v2;
+    while (prev[curr] != V(-1)) {
+        path.push_back(curr);
+        curr = prev[curr];
+    }
+    path.push_back(v1);
+    std::reverse(path.begin(), path.end());
+    return path;
 }
 
-// Dijkstra's algorithm using a priority queue
-// https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm
+
 template<typename K, typename V>
 V Graph<K, V>::shortestDis(K v1, K v2) const {
-    if (!ifConnected(v1, v2))
-        return V();
+    if (!ifConnected(v1, v2)) // if no path found
+        return V(-1);
 
-    std::set<pair<int, K>> Q; // a set to store the priority queue
-    Q.insert({0, v1});
-    vector<V> shortest_dis(vertices_.size(), INT_MAX);
-    shortest_dis[v1] = 0;
+    unordered_map<K, V> dist; // contains min distance from source to every other vertex
+    std::priority_queue<pair<K, V>, vector<pair<K, V>>, std::greater<pair<K, V>>> Q; // min heap, contains all unvisited vertices in pair of distance
+
+    for (auto it = vertices_.begin(); it != vertices_.end(); ++it)
+        dist[it->first] = std::numeric_limits<V>::max();
+
+    dist[v1] = 0;
+    Q.push(std::make_pair(v1, 0));
 
     while (!Q.empty()) {
-        K idx = Q.begin()->second;
-        if (idx == v2) {
-            return shortest_dis[idx];
-        }
-        Q.erase(Q.begin());
-        for (auto e: vertices_[idx]) {
-            if (shortest_dis[e.dest_] > shortest_dis[idx] + e.weight_) {
-                Q.erase({shortest_dis[e.dest_], e.dist_});
-                shortest_dis[e.dest_] = shortest_dis[idx] + e.weight_;
-                Q.insert({shortest_dis[e.dest_], e.dist_});
+        K curr = Q.top().first; // curr is now the closest vertex to v1
+        Q.pop();
+
+        for (auto adj: vertices_[curr]) {
+            auto neighbor = adj.first;
+            auto edge = adj.second;
+            if (dist[neighbor] > dist[curr] + edge.weight_) {
+                dist[neighbor] = dist[curr] + edge.weight_;
+                Q.push(std::make_pair(neighbor, dist[neighbor]));
             }
         }
     }
+    return dist[v2];
 }
 
 
