@@ -160,7 +160,10 @@ unsigned Graph<K, V>::BetweenessCentrality(const K& v) const {
 }
 
 // Implemented based on shortestDis.
-// Starting at the destination, examine all nodes with edges going to it. Pick the node adjacent to the destination with the lowest min(distance + edge.weight) to the destination node. If the adjacent node is not in the min distance map, ignore it. This is the new destination. Repeat until the destination is the source.
+// Starting at the destination, examine all nodes with edges going to it. 
+//Pick the node adjacent to the destination with the lowest min(distance + edge.weight) to the destination node. 
+//If the adjacent node is not in the min distance map, ignore it. 
+//This is the new destination. Repeat until the destination is the source.
 template<typename K, typename V>
 vector<K> Graph<K, V>::shortestPath(K v1, K v2) const {
     if (!ifConnected(v1, v2))
@@ -267,6 +270,7 @@ bool Graph<K, V>::ifConnected(K v1, K v2) const {
     // thus not connected
     return false;
 }
+
 
 template<typename K, typename V>
 unsigned Graph<K, V>::verticesSize() {

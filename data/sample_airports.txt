@@ -6,3 +6,4 @@
 6,"Wewak International Airport","Wewak","Papua New Guinea","WWK","AYWK",-3.58383011818,143.669006348,19,10,"U","Pacific/Port_Moresby","airport","OurAirports"
 7,"Narsarsuaq Airport","Narssarssuaq","Greenland","UAK","BGBW",61.1604995728,-45.4259986877,112,-3,"E","America/Godthab","airport","OurAirports"
 8,"Godthaab / Nuuk Airport","Godthaab","Greenland","GOH","BGGH",64.19090271,-51.6781005859,283,-3,"E","America/Godthab","airport","OurAirports"
+9,"Melitopol Air Base","Melitopol","Ukraine",\N,"UKDM",46.880001,35.305,0,\N,\N,\N,"airport","OurAirports"

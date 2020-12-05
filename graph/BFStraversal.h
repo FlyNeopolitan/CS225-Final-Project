@@ -9,12 +9,18 @@ class BFStraversal : GraphTraversal<K> {
 
 public:
     
+    /**
+     * constructor for BFStraversal class
+     * @param graph represents graph to traversal
+     * @param startingPoint represents start point of traversal
+     */
     BFStraversal(Graph<K, V> graph, K startingPoint) : start(startingPoint) {
         this->graph = graph;
         if (!graph.vertexExists(start)) {
             throw std::invalid_argument("start point doesn't exist");
         }
         Queue.push(start);
+        visited.insert(start);
     }
 
     typename GraphTraversal<K>::Iterator begin() {

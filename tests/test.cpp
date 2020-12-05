@@ -237,6 +237,7 @@ TEST_CASE("Traversal") {
 
 }
 
+
 TEST_CASE("if connected"){
     SECTION("simple test"){
         Graph<int, int> graph{1, 2, 3, 4, 5};
@@ -249,6 +250,7 @@ TEST_CASE("if connected"){
         REQUIRE(graph.ifConnected(2,5) == false);
     }
 }
+
 
 TEST_CASE("betweenness Centrality"){
     // shortest path not finished yet

@@ -10,7 +10,7 @@ public:
     class Iterator : std::iterator<std::forward_iterator_tag, K> {
         public:
         
-             /**
+            /**
             * Default constructor for Iterator class
             * Sets the traversal pointer to NULL
             */

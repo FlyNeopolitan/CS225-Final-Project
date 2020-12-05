@@ -123,7 +123,6 @@ public:
      */
     unsigned BetweenessCentrality(const K& v) const;
 
-
     /**
      * get the shortest path from source to target
      * @param v1 represents source vertex
@@ -159,12 +158,10 @@ public:
 private:
 
     class Vertex {
-
         public:
             Vertex(const K& v) {
                 value = v;
             }
-
         private:
             K value;
     };

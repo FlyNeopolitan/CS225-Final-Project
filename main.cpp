@@ -6,14 +6,38 @@
 #include "map"
 #include  <math.h>
 
+/**
+ * get airports data from file
+ * @param filename represents airports file
+ * @return a unordered_map whose key is the name of airport and value is the location of airport
+ */
 unordered_map<std::string, pair<double, double>> readAirports(const std::string& filename);
 
+/**
+ * get routes data from file
+ * @param filename represents routes file
+ * @return a vector of pair of routes(pair's first is source airports, and pair's second is destination)
+ */
 std::vector<pair<std::string, std::string>> readRoutes(const std::string& filename);
 
+/**
+ * get a graph based on airports data and routes data
+ * @param airports represents airports data
+ * @param routes represents routes data
+ * @return a directed graph whose vertex represents name of airport and edge represents route
+ * weight = distance(source, destination)
+ */
 Graph<std::string, double> openFlightsGraph(const unordered_map<std::string, pair<double, double>>& airports, 
     const std::vector<pair<std::string, std::string>>& routes);
 
+/**
+ * calculate distance between source and destination
+ * @param source represents source's location
+ * @param des represents destination's location
+ * @return the distance between source and destination
+ */
 double distance(const pair<double, double>& source, const pair<double, double>& des);
+
 
 int main() {
     //sample : BFS traversal for graph
@@ -27,21 +51,30 @@ int main() {
         std::cout << *i << " ";
     }
     std::cout << std::endl;
-    //sample : read in sample 
+    //sample : read in airports
     auto airports = readAirports("data/sample_airports.txt");
+    std::cout << std::endl << "We have these airports: " << std::endl;
     for (auto& i : airports) {
-        std::cout << i.first <<" "<< i.second.first << " "<< i.second.second << std::endl;
+        std::cout << "Name: " << i.first <<" Lontitude: "<< i.second.first << " Latitude: "<< i.second.second << std::endl;
     }
+    //sample : read in routes
     auto routes = readRoutes("data/sample_routes.txt");
+    std::cout << std::endl << "We have these routes: " << std::endl;
     for (auto& i : routes) {
-        std::cout << i.first << " " << i.second << std::endl;
+        std::cout << "Source: " << i.first << " Destination: " << i.second << std::endl;
     }
+    //sample : graph construction 
     auto sampleGraph = openFlightsGraph(airports, routes);
-    BFStraversal<std::string, double> traversal(sampleGraph, "KZG");
+    //sample : do a traversal
+    std::cout << std::endl << "Let's do a traversal, from airport LAE" << std::endl;
+    BFStraversal<std::string, double> traversal(sampleGraph, "LAE");
     for (const auto& i : traversal) {
-        std::cout << i << std::endl;
+        std::cout << "Currently we are here: " << i << std::endl;
     }
+    //other samples....
 }
+
+//implementaion of helper method
 
 unordered_map<std::string, pair<double, double>> readAirports(const std::string& filename) {
     unordered_map<std::string, pair<double, double>> ans;
@@ -49,10 +82,13 @@ unordered_map<std::string, pair<double, double>> readAirports(const std::string&
     for (auto line : lines) {
         auto name = line[4];
         name.erase(std::remove(name.begin(), name.end(), '"'), name.end());
-        ans[name] = pair<double, double>(std::stod(line[6]), std::stod(line[7]));
+        if (name.find("\N") == std::string::npos) {      
+            ans[name] = pair<double, double>(std::stod(line[6]), std::stod(line[7]));
+        }            
     }
     return ans;
 }
+
 
 std::vector<pair<std::string, std::string>> readRoutes(const std::string& filename) {
     std::vector<pair<std::string, std::string>> routes;
@@ -64,6 +100,7 @@ std::vector<pair<std::string, std::string>> readRoutes(const std::string& filena
     }
     return routes;
 }
+
 
 Graph<std::string, double> openFlightsGraph(const unordered_map<std::string, pair<double, double>>& airports, 
     const std::vector<pair<std::string, std::string>>& routes) {
@@ -81,8 +118,9 @@ Graph<std::string, double> openFlightsGraph(const unordered_map<std::string, pai
         return graph; 
 }
 
+
 double distance(const pair<double, double>& source, const pair<double, double>& des) {
     double s = (source.first - des.first) * (source.first - des.first) + (source.second - des.second) * (source.second - des.second);
-    std::cout << s << std::endl;
     return std::sqrt(s);
 }
+
