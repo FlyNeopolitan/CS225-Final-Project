@@ -144,21 +144,22 @@ template<typename K, typename V>
 unsigned Graph<K, V>::BetweenessCentrality(const K& v) const {
     // initialize the res to be 0
     unsigned res=0;
-    unsigned cnt = 0;
-    // traverse all pairs of vertices in the graph, and find shortest path between the two
-    for (auto src=vertices_.begin();src!=vertices_.end();++src){
-        for (auto dest=vertices_.begin();dest!=vertices_.end();++dest){
-            std::cout << cnt << std::endl;
-            ++cnt;
-            // if the src or the dest is v itself or
-            // if these two vertices are the same vertices
-            if ((*src).first == v || (*dest).first==v ||
-                (*src).first == (*dest).first) continue;
-            // compute the shortest path between the src and dest vertices
-            vector<K> v_path = shortestPath((*src).first,(*dest).first);
-            std::unordered_set<K> path_set(v_path.begin(), v_path.end());
-            // check if the target vertice exists in the shortest path, increase the res
-            if(path_set.find(v) != path_set.end()) res++;
+    std::vector<std::unordered_set<K>> paths;
+    
+    for (auto src = vertices_.begin(); src != vertices_.end(); ++src) {
+        K current = src->first;
+        if (current != v) {
+            auto currentPaths = shortestPath(current);
+            for (auto des : currentPaths) {
+                if (des.first != v) {
+                    paths.push_back(std::unordered_set<K>(des.second.begin(), des.second.end()));
+                }
+            }
+        }
+    }
+    for (auto& path : paths) {
+        if (path.find(v) != path.end()) {
+            ++res;
         }
     }
     return res;
@@ -250,7 +251,7 @@ V Graph<K, V>::shortestDis(K v1, K v2) const {
 
 
 template<typename K, typename V>
-unordered_map<K, vector<K>>  Graph<K, V>::shortestPath(K v1) {
+unordered_map<K, vector<K>>  Graph<K, V>::shortestPath(K v1) const {
     unordered_map<K, vector<K>> results;
 
     unordered_map<K, K> prev; // predecessor, the shortest path between v1 and v2 is: v1 -> u -> v2 where u = prev[v2] (note that the path from v1 to u may contain several vertices in between)
@@ -299,9 +300,10 @@ unordered_map<K, vector<K>>  Graph<K, V>::shortestPath(K v1) {
     return results;
 }
 
+
 template<typename K, typename V>
 vector<K> Graph<K, V>::shortestPathHelper(const K&current, const unordered_map<K, K>& prev,
-     unordered_map<K, vector<K>> results) {
+     unordered_map<K, vector<K>> results) const {
         auto lookup = results.find(current);
         if (lookup != results.end()) {
             return lookup->second;
@@ -312,6 +314,7 @@ vector<K> Graph<K, V>::shortestPathHelper(const K&current, const unordered_map<K
             return pathBefore;
         }
 }
+
 
 template<typename K, typename V>
 bool Graph<K, V>::ifConnected(K v1, K v2) const {

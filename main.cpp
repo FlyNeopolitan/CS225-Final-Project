@@ -37,24 +37,24 @@ int main() {
     }
     std::cout << std::endl;
     //sample : read in airports
-    auto airports = readAirports("data/airports.txt");
+    auto airports = readAirports("data/sample_airports.txt");
     printAirports(airports);
     //sample : read in routes
-    auto routes = readRoutes("data/routes.txt");
+    auto routes = readRoutes("data/sample_routes.txt");
     printRoutes(routes);
     //sample : graph construction 
     auto sampleGraph = openFlightsGraph(airports, routes);
     //sample : do a traversal
     printTraversal(sampleGraph, "LAE");
     //shortes path
-    auto distance = sampleGraph.shortestDis("LAE", "OKA");
-    auto path = sampleGraph.shortestPath("LAE", "OKA");
+    auto distance = sampleGraph.shortestDis("LAE", "GOH");
+    auto path = sampleGraph.shortestPath("LAE", "GOH");
     std::cout << distance << std::endl;
     for (auto& node : path) {
         std::cout << node << std::endl;
     }
     //centrality
-    std::cout << sampleGraph.BetweenessCentrality("LAE") << std::endl;
+    std::cout <<sampleGraph.BetweenessCentrality("KZG") << std::endl;
 }
 
 void printAirports(const std::unordered_map<std::string, std::pair<double, double>>& airports) {
@@ -72,12 +72,9 @@ void printRoutes(const std::vector<std::pair<std::string, std::string>>& routes)
 }
 
 void printTraversal(Graph<std::string, double>& graph, std::string start) {
-    unsigned cnt = 0;
     std::cout << std::endl << "Let's do a traversal, from airport: " + start << std::endl;
     BFStraversal<std::string, double> traversal(graph, start);
     for (const auto& i : traversal) {
         std::cout << "Currently we are here: " << i << std::endl;
-        ++cnt;
     }
-    std::cout << "we have " << cnt << std::endl;
 }

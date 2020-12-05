@@ -161,7 +161,7 @@ public:
     * @param v1 represents source vertex
     * @return the result of shortest path from v1 to all other graph
     */
-    unordered_map<K, vector<K>> shortestPath(K v1);
+    unordered_map<K, vector<K>> shortestPath(K v1) const;
 
 private:
 
@@ -176,8 +176,13 @@ private:
 
     mutable unordered_map<K, unordered_map<K, Edge<K, V>>> vertices_;
 
-    
-    vector<K> shortestPathHelper(const K&current, const unordered_map<K, K>& prev, unordered_map<K, vector<K>> results);
+    /**
+     * help method to calculte shortes path from source to all other nodes
+     * @param current represents current destination
+     * @param prev represents prev node for current node in shortes path
+     * @param results represents result map
+     */
+    vector<K> shortestPathHelper(const K&current, const unordered_map<K, K>& prev, unordered_map<K, vector<K>> results) const;
 };
 
 #include "graph.hpp"
