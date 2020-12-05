@@ -45,8 +45,14 @@ std::vector<std::string> split(std::string str,std::string delim){
 	while(1){
 		size_t pos=str.find(delim);
 		if(pos==str.npos) break;
+		// if there is delim in the contents enclosed by ""
+        if(str[0]=='\"' && str[pos]!='\"'){
+            for (size_t i=1;i<str.length();i++){
+                if(str[i]=='\"') {pos=i+1; break;}
+            }
+        }
 		res.push_back(str.substr(0,pos));
-		str=str.substr(pos+1,str.size());
+		str=str.substr(pos+1);
 	}
 	res.push_back(str);
 	return res;
