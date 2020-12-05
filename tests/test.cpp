@@ -256,6 +256,20 @@ TEST_CASE("Dijkstra"){
         REQUIRE(graph.shortestDis(1, 4) == -1);
         REQUIRE(graph.shortestDis(1, 3) == 1);
     }
+
+    SECTION("Shortest Path and Distance : another simple test") {
+        Graph<int, int> graph{1, 2, 3, 4, 5, 6};
+        graph.insertEdge(1, 2, 1);
+        graph.insertEdge(1, 3, 2);
+        graph.insertEdge(2, 4, 3);
+        graph.insertEdge(3, 4, 4);
+        graph.insertEdge(3, 5, 5);
+        graph.insertEdge(5, 4, 2);
+        graph.insertEdge(5, 6, 3);
+        graph.insertEdge(4, 6, 1);
+        REQUIRE(graph.shortestPath(1, 6) == vector<int>{1, 2, 4, 6});
+        REQUIRE(graph.shortestDis(1, 6) == 5);
+    }
 }
 
 
