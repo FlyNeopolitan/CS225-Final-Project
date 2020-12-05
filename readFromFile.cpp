@@ -6,6 +6,10 @@
 #include <vector>
 #include <iterator>
 #include "readFromFile.hpp"
+#include "math.h"
+
+using std::pair;
+
 
 // we do not use this function
 // drawbacks: the buffer is too large, not good for performance; and not sliced by delim
@@ -19,6 +23,7 @@ std::string file_to_string(const std::string & filename) {
 
 	return strStream.str();
 }
+
 
 // we do not use this function either
 // drawbacks: the delimeter is white space, not slicing the file the way we want
@@ -36,6 +41,7 @@ std::vector<std::string> file_to_vector(const std::string & filename) {
 
 	return out;
 }
+
 
 // helper function, split string
 std::vector<std::string> split(std::string str,std::string delim){
@@ -58,6 +64,7 @@ std::vector<std::string> split(std::string str,std::string delim){
 	return res;
 }
 
+
 // You may access the data in the file in the form :
 // For example: data[0][0] for the first column in the first line
 // Another usage: data.size() to get the total line in the data
@@ -78,3 +85,56 @@ std::vector<std::vector<std::string>> line_to_vector(const std::string & filenam
 	}
 	return res;
 }
+
+
+unordered_map<std::string, pair<double, double>> readAirports(const std::string& filename) {
+    unordered_map<std::string, pair<double, double>> ans;
+    auto lines = line_to_vector(filename, ",");
+    for (auto line : lines) {
+        auto name = line[4];
+        name.erase(std::remove(name.begin(), name.end(), '"'), name.end());
+        std::cout << line[0] << " " << line[4] << " " << line[6] << " " << line[7] << std::endl;
+        if (name.find("\N") == std::string::npos) {      
+            ans[name] = pair<double, double>(std::stod(line[6]), std::stod(line[7]));
+        }            
+    }
+    return ans;
+}
+
+
+std::vector<pair<std::string, std::string>> readRoutes(const std::string& filename) {
+    std::vector<pair<std::string, std::string>> routes;
+    auto lines = line_to_vector(filename, ",");
+    for (auto line : lines) {
+        auto source = line[2];
+        auto des = line[4];
+        routes.push_back(pair<std::string, std::string>(source, des));
+    }
+    return routes;
+}
+
+
+Graph<std::string, double> openFlightsGraph(const unordered_map<std::string, pair<double, double>>& airports, 
+    const std::vector<pair<std::string, std::string>>& routes) {
+        std::vector<std::string> airportNames;
+        for (auto& i : airports) {
+            airportNames.push_back(i.first);
+        }
+        Graph<std::string, double> graph(airportNames);
+        for (auto& route : routes) {
+            auto lookSrc = airports.find(route.first);
+            auto lookDes = airports.find(route.second);
+            if (lookSrc != airports.end() && lookDes != airports.end()) {
+                double dis = distance(lookSrc->second, lookDes->second);
+                graph.insertEdge(route.first, route.second, dis);
+            }           
+        }
+        return graph; 
+}
+
+
+double distance(const pair<double, double>& source, const pair<double, double>& des) {
+    double s = (source.first - des.first) * (source.first - des.first) + (source.second - des.second) * (source.second - des.second);
+    return std::sqrt(s);
+}
+

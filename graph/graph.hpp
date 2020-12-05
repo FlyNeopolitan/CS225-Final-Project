@@ -170,7 +170,7 @@ vector<K> Graph<K, V>::shortestPath(K v1, K v2) const {
     std::priority_queue<pair<K, V>, vector<pair<K, V>>, std::greater<pair<K, V>>> Q; // min heap, contains all unvisited vertices in pair of distance
 
     for (auto it = vertices_.begin(); it != vertices_.end(); ++it) {
-        prev[it->first] = V(-1); // use V(-1) as undefined
+        prev[it->first] = V(0); // use V(-1) as undefined
         dist[it->first] = std::numeric_limits<V>::max();
     }
     //prev[v1] = V();
@@ -205,7 +205,7 @@ vector<K> Graph<K, V>::shortestPath(K v1, K v2) const {
      */
     vector<K> path;
     K curr = v2;
-    while (prev[curr] != V(-1)) {
+    while (prev[curr] != V(0)) {
         path.push_back(curr);
         curr = prev[curr];
     }
