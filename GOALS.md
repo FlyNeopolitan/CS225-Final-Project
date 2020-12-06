@@ -11,7 +11,7 @@ https://openflights.org/data.html
 - We will use The OpenFlights Airports Database, routes Database to get the weight and edge. Each node represents an airport. 
 
 ```
-Edge Weight= Distance / Routes
+Edge Weight= Distance
 ```
 
 - Attributes used for each database :
@@ -34,10 +34,8 @@ Edge Weight= Distance / Routes
 
 ### Covered :
 
-- Shortest path : Floyd-Warshall Algorithm
+- Shortest path : Dijkstra's Algorithm
 
 ### Uncovered :
 
-- Shortest path 
-- Importance of vertex : PageRank / Betweenness centrality
-- Visualization
+- Importance of vertex : Betweenness centrality
