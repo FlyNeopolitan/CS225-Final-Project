@@ -16,19 +16,19 @@ For example, if there is a route from airport A to airport B, insert an edge fro
 
 #### 1.Get project:
 
-```
+```bash
 git clone 
 ```
 
 #### 2.Compile and link: 
 
-```
+```bash
 make (make test)
 ```
 
 #### 3.Run: 
 
-```
+```bash
 ./main (./test)
 ```
 
@@ -42,4 +42,4 @@ Currently the executable uses small sample data (Around 10 airports and 20 route
 
 * [Airports data](https://raw.githubusercontent.com/jpatokal/openflights/master/data/airports.dat)
 * [Routes data](https://raw.githubusercontent.com/jpatokal/openflights/master/data/routes.dat)
-* You may find samples of data in our repo under the folder named \`data\`
+* You may find samples of data in our repo under the folder named `data`
