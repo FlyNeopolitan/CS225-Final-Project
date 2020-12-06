@@ -37,10 +37,10 @@ int main() {
     }
     std::cout << std::endl;
     //sample : read in airports
-    auto airports = readAirports("data/sample_airports.txt");
+    auto airports = readAirports("data/airports.txt");
     printAirports(airports);
     //sample : read in routes
-    auto routes = readRoutes("data/sample_routes.txt");
+    auto routes = readRoutes("data/routes.txt");
     printRoutes(routes);
     //sample : graph construction 
     auto sampleGraph = openFlightsGraph(airports, routes);
@@ -54,7 +54,7 @@ int main() {
         std::cout << node << std::endl;
     }
     //centrality
-    std::cout <<sampleGraph.BetweenessCentrality("KZG") << std::endl;
+    std::cout << "Centrality: " << sampleGraph.BetweenessCentrality("LAE") << std::endl;
 }
 
 void printAirports(const std::unordered_map<std::string, std::pair<double, double>>& airports) {
