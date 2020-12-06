@@ -35,7 +35,7 @@ make (make test)
 
 **4. Other data** 
 
-Currently the executable uses small sample data (Around 10 airports and 20 routes). If you want to use other data set, you could change main.cpp. (Warning: If you use complete data set, around 14000 airports and 67000 routes, it will take a long time, around ten minutes, to compute betweenness centrality.)
+Currently the executable uses small sample data (Around 10 airports and 20 routes). If you want to use other data set, you could change main.cpp. (Warning: If you use complete data set, with around 14000 airports and 67000 routes, it will take a long time, about ten minutes, to compute betweenness centrality.)
 
 ## Where do we retrieve our data?
 [Open flights](<https://openflights.org/data.html>)
