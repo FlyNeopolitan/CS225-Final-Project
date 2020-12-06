@@ -119,13 +119,15 @@ public:
     //advanced algorithems
 
     /**
+     * calcultae betweeness Centrality
      * @param v represents target vertex
-     * @return the time shortest path go through it
+     * @return the time shortest path go through it 
+     * (exclude the case when source or destination of path is itself)
      */
     unsigned BetweenessCentrality(const K& v) const;
 
     /**
-     * get the shortest path from source to target
+     * get the shortest path from source to target using Dijkstra
      * @param v1 represents source vertex
      * @param v2 represents target vertex
      * @return a vector with vertex from source to target (including)
@@ -135,7 +137,7 @@ public:
     vector<K> shortestPath(K v1, K v2) const;
 
     /**
-     * get the shortest distance from source to target
+     * get the shortest distance from source to target using Dijkstra
      * @param v1 represents source vertex
      * @param v2 represents target vertex
      * @return the distance from source to target
@@ -158,6 +160,7 @@ public:
     
     /**
     * get shortest path from v1 to all other vetices in the graph if connected
+    * Use Dijkstra and Dynammic programming
     * @param v1 represents source vertex
     * @return the result of shortest path from v1 to all other graph
     */
@@ -178,11 +181,12 @@ private:
 
     /**
      * help method to calculte shortes path from source to all other nodes
+     * dynammic programming method
      * @param current represents current destination
      * @param prev represents prev node for current node in shortes path
      * @param results represents result map
      */
-    vector<K> shortestPathHelper(const K&current, const unordered_map<K, K>& prev, unordered_map<K, vector<K>> results) const;
+    vector<K> shortestPathHelper(const K& current, const unordered_map<K, K>& prev, unordered_map<K, vector<K>>& results) const;
 };
 
 #include "graph.hpp"

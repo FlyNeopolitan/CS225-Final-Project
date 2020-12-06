@@ -93,7 +93,6 @@ unordered_map<std::string, pair<double, double>> readAirports(const std::string&
     for (auto line : lines) {
         auto name = line[4];
         name.erase(std::remove(name.begin(), name.end(), '"'), name.end());
-        std::cout << line[0] << " " << line[4] << " " << line[6] << " " << line[7] << std::endl;
         if (name.find("\N") == std::string::npos) {      
             ans[name] = pair<double, double>(std::stod(line[6]), std::stod(line[7]));
         }            

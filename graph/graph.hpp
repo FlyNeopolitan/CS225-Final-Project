@@ -1,7 +1,6 @@
-
-//constructors
 #include "unordered_set"
 
+//constructors
 template<class K, class V>
 Graph<K, V>::Graph() {
     //seems nothing here
@@ -137,29 +136,26 @@ bool Graph<K, V>::edgetExists(const K& v1, const K& v2) const {
 
 //advanced algorithems
 
-// time complexity is O(n^3), which is too large
-// Thus when using, desploy a small sample to indicate the population,
-// rather than apply to the large population directly
 template<typename K, typename V>
 unsigned Graph<K, V>::BetweenessCentrality(const K& v) const {
     // initialize the res to be 0
-    unsigned res=0;
-    std::vector<std::unordered_set<K>> paths;
+    unsigned res = 0;
     
     for (auto src = vertices_.begin(); src != vertices_.end(); ++src) {
         K current = src->first;
         if (current != v) {
+            if (!ifConnected(current, v)) {
+                continue;
+            }
             auto currentPaths = shortestPath(current);
-            for (auto des : currentPaths) {
+            for (auto& des : currentPaths) {
                 if (des.first != v) {
-                    paths.push_back(std::unordered_set<K>(des.second.begin(), des.second.end()));
+                    std::unordered_set<K> path(des.second.begin(), des.second.end());
+                    if (path.find(v) != path.end()) {
+                        ++res;
+                    }
                 }
             }
-        }
-    }
-    for (auto& path : paths) {
-        if (path.find(v) != path.end()) {
-            ++res;
         }
     }
     return res;
@@ -303,7 +299,7 @@ unordered_map<K, vector<K>>  Graph<K, V>::shortestPath(K v1) const {
 
 template<typename K, typename V>
 vector<K> Graph<K, V>::shortestPathHelper(const K&current, const unordered_map<K, K>& prev,
-     unordered_map<K, vector<K>> results) const {
+     unordered_map<K, vector<K>>& results) const {
         auto lookup = results.find(current);
         if (lookup != results.end()) {
             return lookup->second;
@@ -311,6 +307,7 @@ vector<K> Graph<K, V>::shortestPathHelper(const K&current, const unordered_map<K
             auto lookPrev = prev.find(current);
             vector<K> pathBefore = shortestPathHelper(lookPrev->second, prev, results);
             pathBefore.push_back(current);
+            results[current] = pathBefore;
             return pathBefore;
         }
 }

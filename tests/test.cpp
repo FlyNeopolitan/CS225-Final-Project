@@ -271,7 +271,7 @@ TEST_CASE("Dijkstra"){
         REQUIRE(graph.shortestDis(1, 6) == 5);
     }
 
-    SECTION("Shortest path : simple test") {
+    SECTION("Shortest path from one to all others : simple test") {
         Graph<int, int> graph{1, 2, 3};
         graph.insertEdge(1, 2, 1);
         graph.insertEdge(1, 3, 1);
@@ -312,7 +312,7 @@ TEST_CASE("betweenness Centrality"){
         graph.insertEdge(4, 2);
         graph.insertEdge(4, 5);
         graph.insertEdge(4, 3);
-        REQUIRE(graph.BetweenessCentrality(1)==4);
+        REQUIRE(graph.BetweenessCentrality(1) == 4);
     }
 }
 
