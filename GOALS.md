@@ -33,10 +33,14 @@ Edge Weight= Distance
 ## Algorithms
 
 ### Covered :
-- Traversal : BFS traversal & if connected
+- Traversal : BFS traversal 
 
 - Shortest path : Dijkstra's Algorithm
 
 ### Uncovered :
 
 - Importance of vertex : Betweenness centrality
+
+### Others :
+- Connectedness: check if two nodes are connected
+- Advanced shortes path: get shortest path from one node to all others based on dynammic programming
