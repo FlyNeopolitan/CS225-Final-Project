@@ -15,25 +15,25 @@ For example, if there is a route from airport A to airport B, insert an edge fro
 
 ## How to build and run executable
 
-**1.Get project:**
+**1. Get project:**
 
 ```bash
 git clone 
 ```
 
-**2.Compile and link:**
+**2. Compile and link:**
 
 ```bash
 make (make test)
 ```
 
-**3.Run:** 
+**3. Run:** 
 
 ```bash
 ./main (./test)
 ```
 
-**4.Other data** 
+**4. Other data** 
 
 Currently the executable uses small sample data (Around 10 airports and 20 routes). If you want to use other data set, you could change main.cpp. (Warning: If you use complete data set, around 14000 airports and 67000 routes, it will take a very long time, more than twenty minutes, to compute betweenness centrality.)
 
