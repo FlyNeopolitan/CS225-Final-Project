@@ -3,7 +3,7 @@
 ![](https://img.shields.io/badge/build-passing-brightgreen?style=flat&logo=visual-studio-code)
 ![](https://img.shields.io/badge/Zoom-Chat!-red?style=flat-square&logo=zoom)
 
-## What is project doing
+## What is our project doing?
 
 This project aims to implement a template directed graph in the form of adjacency list, and import data from open flights as a sample. With several graph algorithms like Dijkstra, this project may compute some useful information based on the data.  
 
