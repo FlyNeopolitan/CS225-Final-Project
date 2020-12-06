@@ -1,6 +1,6 @@
-![](<https://img.shields.io/badge/release-v1.00-blue>)
-![](<https://img.shields.io/badge/build-passing-brightgreen?style=flat&logo=visual-studio-code>)
-![](<https://img.shields.io/badge/Zoom-Chat>!-red?style=flat-square&logo=zoom>)
+![](https://img.shields.io/badge/release-v1.00-blue)
+![](https://img.shields.io/badge/build-passing-brightgreen?style=flat&logo=visual-studio-code)
+![](https://img.shields.io/badge/Zoom-Chat!-red?style=flat-square&logo=zoom)
 
 ### What is project doing
 
