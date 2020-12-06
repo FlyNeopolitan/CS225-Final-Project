@@ -33,7 +33,7 @@ Edge Weight= Distance
 ## Algorithms
 
 ### Covered :
-- Traversal : DFS traversal
+- Traversal : BFS traversal & if connected
 
 - Shortest path : Dijkstra's Algorithm
 
