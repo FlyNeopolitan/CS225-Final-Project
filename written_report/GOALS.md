@@ -42,5 +42,5 @@ Edge Weight = Distance
 - Importance of vertex : Betweenness centrality
 
 ### Others :
-- Connectedness: check if two nodes are connected
-- Advanced shortes path: get shortest path from one node to all others based on dynammic programming
+- Connectedness: check if two vertices are connected
+- Advanced shortes path: get shortest path from one vertex to all others based on dynammic programming
