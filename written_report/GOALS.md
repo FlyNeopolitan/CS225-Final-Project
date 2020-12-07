@@ -43,4 +43,4 @@ Edge Weight = Distance
 
 ### Others :
 - Connectedness: check if two vertices are connected
-- Advanced shortes path: get shortest path from one vertex to all others based on dynammic programming
+- Advanced shortes path: get shortest path from one vertex to all others based on dynamic programming
