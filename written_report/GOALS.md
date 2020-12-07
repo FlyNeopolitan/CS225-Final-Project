@@ -11,7 +11,7 @@ https://openflights.org/data.html
 - We will use The OpenFlights Airports Database, routes Database to get the weight and edge. Each node represents an airport. 
 
 ```
-Edge Weight= Distance
+Edge Weight = Distance
 ```
 
 - Attributes used for each database :
