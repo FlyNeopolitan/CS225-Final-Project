@@ -1,5 +1,6 @@
 #include "graphIterator.h" 
 
+// we don't implement DFS (DFS is not a good idea for large data set)
 template<typename K, typename V>
 class DFStraversal : GraphTraversal<K> {
 

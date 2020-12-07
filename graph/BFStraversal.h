@@ -22,7 +22,7 @@ public:
         Queue.push(start);
         visited.insert(start);
     }
-
+    
     typename GraphTraversal<K>::Iterator begin() {
         return typename GraphTraversal<K>::Iterator(this, start);
     }

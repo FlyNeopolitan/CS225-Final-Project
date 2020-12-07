@@ -133,7 +133,8 @@ Graph<std::string, double> openFlightsGraph(const unordered_map<std::string, pai
 
 
 double distance(const pair<double, double>& source, const pair<double, double>& des) {
-    double s = (source.first - des.first) * (source.first - des.first) + (source.second - des.second) * (source.second - des.second);
+    double x = std::min(abs(source.second - des.second), 360 - abs(source.second - des.second));
+    double s = (source.first - des.first) * (source.first - des.first) + x * x;
     return std::sqrt(s);
 }
 

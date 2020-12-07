@@ -2,7 +2,6 @@
 
 #include "../graph/graph.h"
 
-//warning : node with value K() will be treated like Node out of graph!
 template<typename K>
 class GraphTraversal {
 

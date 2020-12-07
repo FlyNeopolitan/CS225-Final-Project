@@ -181,7 +181,7 @@ private:
 
     /**
      * help method to calculte shortes path from source to all other nodes
-     * dynammic programming method
+     * dynamic programming method
      * @param current represents current destination
      * @param prev represents prev node for current node in shortes path
      * @param results represents result map

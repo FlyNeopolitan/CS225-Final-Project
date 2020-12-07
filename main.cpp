@@ -55,10 +55,11 @@ int main() {
     //sample : do a traversal, and print out
     printTraversal(sampleGraph, "LAE");
     //sample : find shortes path between two airport and print out
-    printShortest(sampleGraph, "LAE", "HGU");
+    printShortest(sampleGraph, "LAE", "KZG");
     //sample : calculate betweenness centrality of a airport and print out
     printCentrality(sampleGraph, "LAE");
 }
+
 
 //implementaion of helper methods
 void printAirports(const std::unordered_map<std::string, std::pair<double, double>>& airports) {
@@ -88,7 +89,7 @@ void printTraversal(const Graph<std::string, double>& graph, std::string start) 
 
 
 void printCentrality(const Graph<std::string, double>& graph, std::string target) {
-    std::cout << std::endl << "The Centrality of " + target + ": " << graph.BetweenessCentrality("LAE") << std::endl;
+    std::cout << std::endl << "The Centrality of " + target + ": " << graph.BetweenessCentrality(target) << std::endl;
 }
 
 
