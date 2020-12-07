@@ -37,7 +37,7 @@ Edge Weight = Distance
 
 - Shortest path : Dijkstra's Algorithm
 
-### Uncovered :
+### Uncovered/Complex :
 
 - Importance of vertex : Betweenness centrality
 
