@@ -65,7 +65,7 @@ int main() {
 void printAirports(const std::unordered_map<std::string, std::pair<double, double>>& airports) {
     std::cout << std::endl << "We have these airports: " << std::endl;
     for (auto& i : airports) {
-        std::cout << "Name: " << i.first <<" Lontitude: "<< i.second.first << " Latitude: "<< i.second.second << std::endl;
+        std::cout << "Name: " << i.first <<" Latitude: "<< i.second.first << " Longitude: "<< i.second.second << std::endl;
     }
 }
 
