@@ -5,13 +5,15 @@
 
 ## What is our project doing?
 
-This project aims to implement a template directed graph in the form of adjacency list, and import data from open flights as a sample. With several graph algorithms like Dijkstra, this project may compute some useful information based on the data.  
+This project aims to implement a template directed graph in the form of adjacency list, and import data from open flights as a sample. With several graph algorithms like Dijkstra and betweenness centrality, this project may compute some useful information based on the data.  
 
 ## Introduction to data sample
 
-We use airports data and routes data to build the graph: the node of graph represents the airport; the edge represents route; weight of edge represents distance between two airports. 
+We use airports data and routes data to build the graph: the vertex represents the airport; the edge represents route, and weight of the edge represents distance between two airports. 
 
-For example, if there is a route from airport A to airport B, insert an edge from A to B with weight equals distance between airport A and B.
+For example, if there is a route from airport A to airport B, insert an edge from A to B with weight equals distance between airport A and B.  
+
+Notice that the distance is a relative distance computed by latitude and longtitude!
 
 ## How to build and run executable
 
