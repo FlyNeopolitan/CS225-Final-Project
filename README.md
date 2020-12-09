@@ -39,11 +39,10 @@ make (make test)
 
 Currently the executable uses small sample data (Around 10 airports and 20 routes). If you want to use other data set, you could change main method in main.cpp easily. (Warning: If you use the complete data set, with around 14000 airports and 67000 routes, it will take a long time, about ten minutes, to compute betweenness centrality.)
 
-## Where do we retrieve our data?
+## Data Source
 [Open flights](<https://openflights.org/data.html>)
 * [Airports data](https://raw.githubusercontent.com/jpatokal/openflights/master/data/airports.dat)
 * [Routes data](https://raw.githubusercontent.com/jpatokal/openflights/master/data/routes.dat)
-* You may find samples of data in our repo under the folder named `data`
 
 ## Directory Structure
 ```bash
