@@ -1,3 +1,8 @@
+/**
+ * head file for Graph Traversal
+ * @file graph/graphIterator.h
+ */
+
 #pragma once
 
 #include "../graph/graph.h"
@@ -107,3 +112,4 @@ public:
     virtual bool empty() const = 0;
 
 };
+

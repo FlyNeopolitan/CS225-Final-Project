@@ -1,3 +1,8 @@
+/**
+ * head and implementation file for BFStraversal
+ * @file graph/BFStraversal.h
+ */
+
 #pragma once
 
 #include "graphIterator.h" 

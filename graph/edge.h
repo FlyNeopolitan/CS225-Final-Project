@@ -1,3 +1,8 @@
+/**
+ * head and implementation file for Edge class
+ * @file graph/edge.h
+ */
+
 #pragma once
 
 template<typename K, typename V>

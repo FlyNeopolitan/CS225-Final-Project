@@ -1,3 +1,8 @@
+/**
+ * file for sample demo
+ * @file main.cpp
+ */
+
 #include <iostream>
 #include "graph/graph.h"
 #include "graph/edge.h"
@@ -102,3 +107,4 @@ void printShortest(const Graph<std::string, double>& graph, std::string source, 
         std::cout << node << std::endl;
     }
 }
+

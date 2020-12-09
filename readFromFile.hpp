@@ -1,3 +1,8 @@
+/**
+ * head file for readFromFile methods
+ * @file readFromFile.hpp
+ */
+
 #pragma once
 #include <string>
 #include <vector>

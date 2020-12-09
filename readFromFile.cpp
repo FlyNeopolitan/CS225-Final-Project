@@ -1,3 +1,8 @@
+/**
+ * implementation file for readFromFile methods
+ * @file readFromFile.cpp
+ */
+
 #include <iostream>
 #include <fstream>
 #include <sstream>

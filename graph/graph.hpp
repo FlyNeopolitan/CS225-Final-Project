@@ -1,3 +1,8 @@
+/**
+ * implementation file for Graph class
+ * @file grap/graph.hpp
+ */
+
 #include "unordered_set"
 
 //constructors
@@ -353,5 +358,4 @@ template<typename K, typename V>
 unsigned Graph<K, V>::verticesSize() {
     return vertices_.size();
 }
-
 

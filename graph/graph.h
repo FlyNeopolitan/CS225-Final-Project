@@ -1,7 +1,8 @@
 /**
  * head file for Graph class
- * @file graph.h
+ * @file graph/graph.h
  */
+
 #pragma once
 
 #include "edge.h"

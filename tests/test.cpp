@@ -1,3 +1,8 @@
+/**
+ * file for tests
+ * @file tests/test.cpp
+ */
+
 #define CATCH_CONFIG_MAIN
 #include <vector>
 #include "catch2/catch.hpp"
@@ -325,3 +330,4 @@ void stringNext(std::string& current) {
 int randomInt(int min, int max) {
     return min + (rand() % static_cast<int>(max - min + 1));
 }
+
