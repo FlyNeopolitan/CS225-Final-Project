@@ -44,3 +44,37 @@ Currently the executable uses small sample data (Around 10 airports and 20 route
 * [Airports data](https://raw.githubusercontent.com/jpatokal/openflights/master/data/airports.dat)
 * [Routes data](https://raw.githubusercontent.com/jpatokal/openflights/master/data/routes.dat)
 * You may find samples of data in our repo under the folder named `data`
+
+## Directory Structure
+```bash
+├── contract
+│   ├── CONTRACT_chengji5.pdf
+│   ├── CONTRACT_jingz15.pdf
+│   ├── CONTRACT_jinzhec2.pdf
+│   └── CONTRACT_yunzew2.pdf
+├── data
+│   ├── airports.txt
+│   ├── routes.txt
+│   ├── sample_airports.txt
+│   └── sample_routes.txt
+├── graph
+│   ├── BFStraversal.h
+│   ├── DFStraversal.h
+│   ├── edge.h
+│   ├── graph.h
+│   ├── graph.hpp
+│   └── graphIterator.h
+├── main.cpp
+├── Makefile
+├── readFromFile.cpp
+├── readFromFile.hpp
+├── README.md
+├── tests
+│   ├── catch2
+│   │   └── catch.hpp
+│   └── test.cpp
+└── written_report
+    ├── cs225_final_report.pdf
+    ├── DEVELOPMENT.md
+    └── GOALS.md
+```
